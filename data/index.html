@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV/TSkUqonYQcchQnSyIijhKFYtgobQVWnUwufQLmjQkKS6OgmvBwY/FqoOLs64OroIg+AHi7OCk6CIl/i8ptIjx4Lgf7+497t4BQqPCVDMwAaiaZaTiMTGbWxWDrwhgAP3wQ5CYqSfSixl4jq97+Ph6F+VZ3uf+HL1K3mSATySeY7phEW8Qz2xaOud94jArSQrxOfG4QRckfuS67PIb56LDAs8MG5nUPHGYWCx2sNzBrGSoxNPEEUXVKF/Iuqxw3uKsVmqsdU/+wlBeW0lzneYI4lhCAkmIkFFDGRVYiNKqkWIiRfsxD/+w40+SSyZXGYwcC6hCheT4wf/gd7dmYWrSTQrFgK4X2/4YBYK7QLNu29/Htt08AfzPwJXW9lcbwOwn6fW2FjkC+raBi+u2Ju8BlzvA0JMuGZIj+WkKhQLwfkbflAMGb4GeNbe31j5OH4AMdbV8AxwcAmNFyl73eHd3Z2//nmn19wMCnnJ6/g/UNAAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB+gEEhE2AkOlM4UAAAHzSURBVFjDxZe9SgNBEMd/OVIkQhBs/SIpLmAlxDewE2xsxBew8g0SBPvUdin1BQRttLYVRMEgET2xsRKLExLUZgLLsHu3d7nTP2yxXzOzO98V/DEPbAGbwDoQAg3Z+wSGwA1wCVwAHxSEEBgAMfDjOWK5E87CeA7oA+MMjPUYC405F5OKY70FnAFrjv1X4AF4kfkK0AaWHOfvgW1g5PPyDeDd8po3oCfCkSB4T87q++9COxEtC/MY6AL1DOqry53YIkQrSed36kLkI3XKb0aK5p3LJvoW5qsJthPISMOqRYi+zdUm6tuTXn5tnN31/AlTHRPtogMlYTeF4K1xdt9THV3FY2BGuFhZe60EAerKO2JgPpDwajI8Br4oHrHQnqIGbAUS202cUB5O1XwzkMQyRQQ8lSjASKLoFOuBssYh5ePB9L7ASKkYsb1MmDwa1QIIHgIHjr1HYCfpclWKiYaR1bJiUYYNKylrn4HSe1jwd39b1tqmzVWljOrIwjLQ9PCEI2DBQ4BnNW+qmuEGYE+FyF6JBthTvPbyhuI8qNlCcd5klAfOZORKx50CmXfS0nHWgiQLvAqSpJKsM+PLvUuytKK0ltHgMhelPmV5V3zZhWbWsjxvYxJJVouM8BpKIJu5MfnT1uzfm9NKCe35FXDu257/AgyuB699A65YAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>ESP32_MasterClock</title>
+  <!-- Bootstrap core CSS -->
+  <link href="required.css" rel="stylesheet">
+  <style>
+    input[readonly].roclass {
+    background-color: #fff;
+    }
+    .custombtn {
+    width: 160px !important;
+    margin-left: 15px !important;
+    }
+    .custombtn2 {
+    width: 335px !important;
+    margin-left: 15px !important;
+    margin-top: 15px !important;
+    }
+    .btn-purple {
+    background-color: #8064A2;
+    border-color: #8064A2;
+    }
+    .btn-purple:hover {
+    background-color: purple;
+    border-color: purple;
+    }
+    .btn-purple:active {
+    background-color: #8064A2;
+    border-color: #8064A2;
+    }
+    .btn-purple:disabled {
+    opacity: 0.5;
+    }
+    .btn-purple:disabled:hover {
+    background-color: #8064A2;
+    border-color: #8064A2;
+    }
+    a.myLink:link {
+    color: #337AB7;
+    text-decoration: none;
+    }
+    a.myLink:visited {
+    text-decoration: none;
+    color: #337AB7;
+    }
+    a.myLink:hover {
+    color: #23527C;
+    text-decoration: underline;
+    }
+    a.myLink:active {
+    color: #23527C;
+    text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="glyphicon glyphicon-arrow-left"></i>
+            </div>
+            <div class="sidebar-header">
+                <span>
+<img style='display:block; width:256px;height:256px;' src='data:image/png;base64,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' alt="ESP32_MasterClock"/>
+                </span>
+                <h3>ESP32_MasterClock</h3>
+            </div>
+            <ul class="list-unstyled components" style="margin-top: -30px;">
+                <li class="active">
+                    <a href="#" id="control"><i class="glyphicon glyphicon-time"></i>Slave Line Control</a>
+                </li>
+                <li>
+                    <a href="#" id="status"><i class="glyphicon glyphicon-info-sign"></i>Status</a>
+                </li>
+                <li  id="settings">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"><i  class="glyphicon glyphicon-cog"></i>Settings</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#" id="clock"><i class="glyphicon glyphicon-scale"></i>Slave Line Settings</a>
+                        </li>
+                        <li>
+                            <a href="#" id="network"><i class="glyphicon glyphicon-signal"></i>Network Settings</a>
+                        </li>
+                        <li>
+                            <a href="#" id="hardware"><i class="glyphicon glyphicon-wrench"></i>Hardware Settings</a>
+                        </li>
+                        <li style="display:none;" id="disp">
+                            <a href="#" id="display"><i class="glyphicon glyphicon-tasks"></i>Display Settings</a>
+                        </li>
+                        <li>
+                            <a href="#" id="general"><i class="glyphicon glyphicon-list-alt"></i>General Settings</a>
+                        </li>
+                        <li>
+                            <a href="#" id="ntp"><i class="glyphicon glyphicon-hourglass"></i>NTP (Time) Settings</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <li>
+                        <a href="#" id="backup"><i class="glyphicon glyphicon-floppy-disk"></i>Backup & Restore</a>
+                    </li>
+                    <li>
+                        <a href="#" id="reset"><i class="glyphicon glyphicon-repeat"></i>Factory Reset</a>
+                    </li>
+                    <li style="display:none;" id="update">
+                        <a href="#" id="updatea"><i class="glyphicon glyphicon-open"></i>Update</a>
+                    </li>
+            </ul>
+            <ul class="list-unstyled CTAs" style="margin-top: -40px;">
+                <li>
+                    <a href="https://github.com/Pako2/esp32_masterclock" class="download">Project's GitHub Page</a>
+                </li>
+                <li>
+                    <a href="https://www.paypal.com/donate/?business=RRNJUGC6BNPGC&no_recurring=1&currency_code=EUR" class="download" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Nothing says better thank you than a donation."><i class="glyphicon glyphicon-euro"></i>Donate</a>
+                </li>
+                <li>
+                    <a href="#" class="article" onclick="logout();">Logout</a>
+                </li>
+                <li>
+                    <h6 id="mainver" class="text-center"></h6>
+                </li>
+            </ul>
+        </nav>
+        <!-- Page Content Holder -->
+        <div id="content">
+            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                <i class="glyphicon glyphicon-menu-hamburger"></i>
+                <span>Menu</span>
+            </button>
+            <div class="pull-right" id="ws-connection-status">
+                <div class="alert alert-warning" role="alert">
+                    <i class="glyphicon glyphicon-warning-sign"></i>
+                    <span>Connection with ESP32_MasterClock absent. Reconnecting...</span>
+                </div>
+            </div>
+            <div id="ajaxcontent">
+            </div>
+            <div id="revcommit" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Please review changes</h4>
+                        </div>
+                        <div class="modal-body">
+                            <pre id="jsonholder"></pre>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" onclick="commit();" class="btn btn-success" data-dismiss="modal">Save & Reboot</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="destroy" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Are you absolutely sure?</h4>
+                        </div>
+                        <div class="alert alert-warning">
+                            <h5><strong>Warning!</strong> Unexpected bad things will happen if you don’t read this!</h5>
+                        </div>
+                        <div class="modal-body">
+                            <h5>
+                                This action <strong>cannot</strong> be undone. This will permanently delete <strong>all settings.</strong> Please make sure you made a backup first.
+                            </h5>
+                            <div style="clear:both;">
+                                <br>
+                            </div>
+                            <h5>Please type in the hostname of the device to confirm.</h5>
+                            <div style="clear:both;">
+                                <br>
+                            </div>
+                            <p>
+                                <input type="text" class="form-control input-block" id="compare" oninput="compareDestroy()">
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="destroybtn" type="button" disabled="" onclick="destroy();" class="btn btn-block btn-danger">I understand the consequences.</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="signin" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Please Sign In</h4>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="login-panel panel panel-default">
+                                    <div class="panel-body">
+                                        <form role="form" onsubmit="login(); return false">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <input id="password" class="form-control" autocomplete="Password" placeholder="Password" name="password" type="password" value="" required="" title="Please enter your password">
+                                                </div>
+                                                <button type="submit" class="btn btn-success btn-md pull-right">Login</button>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="updated" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Update Firmware</h4>
+                        </div>
+                        <div class="alert alert-warning">
+                            <strong>Warning!</strong> Please make sure you made a backup first
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div>
+                                <h4>Latest Version Online</h4>
+                                <div id="onlineupdate">
+                                    <h5 id=releasehead></h5>
+                                    <div style="clear:both;">
+                                        <br>
+                                    </div>
+                                    <!-- <pre id="releasebody">Getting update information from GitHub...</pre> -->
+                                    <div class="pull-right">
+                                        <a class="pull-right" id="downloadupdate">
+                                            <button type="button" class="btn btn-primary">Download</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both;">
+                                <br>
+                            </div>
+                            <div>
+                                <h4>Current Version:</h4>
+                                <h5 id="versionhead"></h5>
+                                <div class="form-group">
+                                    <input id="binform" onchange="allowUpload();" type="file" name="update" accept=".bin">
+                                </div>
+                                <div class="pull-right">
+                                    <button onclick="upload();" class="btn btn-primary" id="upbtn" disabled="">Update</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div style="clear:both;">
+                            <br>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div id="commit" class="container">
+                <h6 class="text-muted">ESP32_MasterClock - This is a <a class="myLink" href="https://github.com/Pako2/esp32_masterclock/blob/main/LICENSE">free</a> software.</h6>
+            </div>
+        </footer>
+        <div class="overlay"></div>
+        <script src="required.js"></script>
+        <script src="masterclock.js"></script>
+        <script>start();</script>
+  </div>
+</body>
+</html>
