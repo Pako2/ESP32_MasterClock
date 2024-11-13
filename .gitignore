@@ -3,9 +3,9 @@
 bin/*
 data/config.json
 include/webh/*
-scripts/_pycache_
-scripts/htmlmin/_pycache_
-scripts/htmlmin/python3html/_pycache_
+scripts/_pycache_/*
+scripts/htmlmin/_pycache_/*
+scripts/htmlmin/python3html/_pycache_/*
 unpacked_fs/*
 partition_table_from_flash.bin
 
